@@ -1,10 +1,18 @@
 import React from 'react';
-import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import { Main } from 'screens/Main/Main'
+import {PostScreen} from "../../screens/PostScreen/PostScreen";
+
+
 
 export const App = () => {
   return (
-    <div className="App">
-    </div>
+    <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/post/:id' element={<PostScreen />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

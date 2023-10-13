@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import {Container} from "./styled";
 
-export const Lightbox = () => {
+export const Lightbox = (children: any) => {
     const [lightboxDisplay, setLightBoxDisplay] = useState(false)
     const [imageToShow, setImageToShow] = useState('')
 
