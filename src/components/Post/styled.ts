@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
   margin: 0 0 15px 0;
   border: 1px solid lightgrey;
   border-radius: 5px;
@@ -30,10 +29,13 @@ export const Img = styled.img`
   display: flex;
   object-fit: cover;
   width: 100%;
+  aspect-ratio: 1/1;
 `
 
 export const ImgWrapper = styled.div`
   display: flex;
+  width: 150px;
+  height: 150px;
 `
 
 export const Text = styled.div`

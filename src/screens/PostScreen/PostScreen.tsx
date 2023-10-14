@@ -6,47 +6,39 @@ import { postRequested, postsSelectors } from 'store/posts/postSlice'
 
 import { Post } from 'components/Post/Post'
 
-import {Lightbox} from "../../shared/ui/Lightbox/Lightbox";
+import { Button } from 'shared/ui/Button/Button'
 
 import { Container, Head, Screen } from './styled'
 
-interface PostScreenProps {}
+interface PostScreenProps {
+  id: string
 
-interface MyParams {
-    id: string
 }
 
-export const PostScreen: FC<PostScreenProps> = () => {
-    const dispatch = useAppDispatch()
+export const PostScreen = ({id} : PostScreenProps) => {
+  const dispatch = useAppDispatch()
 
-    const { id } = useParams<keyof MyParams>() as MyParams
 
-    const post = useAppSelector(state =>
-        postsSelectors.selectById(state.posts, id)
-    )
+  const post = useAppSelector((state) =>
+    postsSelectors.selectById(state.posts, id)
+  )
 
-    useEffect(() => {
-        if (!post) {
-            dispatch(postRequested(id))
-        }
-    }, [dispatch, id, post])
+  useEffect(() => {
+    if (!post) {
+      console.log('requesting post')
+      dispatch(postRequested(id))
+    }
+  }, [post])
 
-    return (
-        <Container>
-            <Head />
-            <Screen>
-                <Lightbox>
-                    {post ? (
-                        <Post
-                            id={post.id}
-                            text={post.text}
-                            url={post.url}
-                        />
-                    ) : (
-                        'puk'
-                    )}
-                </Lightbox>
-            </Screen>
-        </Container>
-    )
+  return (
+    <Container>
+      <Head />
+      <Screen>
+        {post ?
+          <>
+          <Post id={post.id} text={post.text} url={post.url} />
+          </>: 'puk'}
+      </Screen>
+    </Container>
+  )
 }

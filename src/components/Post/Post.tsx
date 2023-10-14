@@ -1,37 +1,32 @@
 import { FC, useEffect, useState } from 'react'
-
-
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../store/store'
+import { postRequested } from '../../store/posts/postSlice'
 import { Comment } from '../Comment/Comment'
-import { Button } from 'shared/ui/Button/Button'
 
-
-import { Container, Head, Likes, Img, Body, ImgWrapper } from './styled'
-
+import { Container, Img, ImgWrapper } from './styled'
 
 interface PostProps {
-    id: string
-    text: string
-    url: string
+  id: string
+  text: string
+  url: string
+
 }
 
 export const Post: FC<PostProps> = ({ id, text, url }) => {
-    const handleClick = () => {
-        console.log('like!')
-    }
-    return (
-        <Container>
-            <Head />
-            <ImgWrapper>
-                <Img src={url}></Img>
-            </ImgWrapper>
-            <Likes>
-                <Button variant='like' onClick={handleClick} />
-            </Likes>
-            <Body>
 
-                {text}
-            </Body>
+  return (
+    <Container >
+      <ImgWrapper>
+        <Img src={url}></Img>
+      </ImgWrapper>
+      {/*<Likes>*/}
+      {/*    <Button variant='like' onClick={handleClick} />*/}
+      {/*</Likes>*/}
+      {/*<Body>*/}
 
-        </Container>
-    )
+      {/*    {text}*/}
+      {/*</Body>*/}
+    </Container>
+  )
 }

@@ -6,13 +6,12 @@ import { reducer as postsReducer } from './posts/postSlice'
 import { reducer as commentsReducer } from './comments/commentSlice'
 import { rootSaga } from './root.saga'
 
-
 const sagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
-    reducer: {posts: postsReducer, comments: commentsReducer},
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().prepend(sagaMiddleware)
+  reducer: { posts: postsReducer, comments: commentsReducer },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(sagaMiddleware),
 })
 
 sagaMiddleware.run(rootSaga)

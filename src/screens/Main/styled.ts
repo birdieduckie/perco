@@ -18,3 +18,9 @@ export const Items = styled.div`
   width: 100%;
   padding: 5% 0 0 0;
 `
+
+export const PostWrapperModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`
