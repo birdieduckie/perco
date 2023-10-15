@@ -5,7 +5,7 @@ export interface Post {
   id: string
   url: string
   title: string
-  text: string
+  comments: string[]
 }
 
 const postsAdapter = createEntityAdapter<Post>({
@@ -21,6 +21,18 @@ export const postSlice = createSlice({
     status: Status.Initial,
   }),
   reducers: {
+    postRequested(state, action) {
+      console.log('request!')
+      state.status = Status.Pending
+    },
+    postReceived(state, action) {
+      console.log(state)
+      postsAdapter.setOne(state, action.payload)
+      state.status = Status.Success
+    },
+    postRequestError(state) {
+      state.status = Status.Failure
+    },
     postsRequested(state) {
       state.status = Status.Pending
     },
@@ -32,6 +44,9 @@ export const postSlice = createSlice({
     postsRequestError(state) {
       state.status = Status.Failure
     },
+    postEdit(state, action) {
+      postsAdapter.updateOne(state, action.payload)
+    }
   },
 })
 
@@ -43,4 +58,7 @@ export const {
   postsRequested,
   postsReceived,
   postsRequestError,
+  postRequested,
+  postReceived,
+  postRequestError,
 } = actions

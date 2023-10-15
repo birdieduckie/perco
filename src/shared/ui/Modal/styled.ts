@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  display: flex;
+  display: block;
   background: white;
   position: fixed;
   top: 50%;
@@ -16,15 +16,10 @@ export const Container = styled.div`
   }
 `
 
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-`
 
 export const Footer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 10px;
 `
 
@@ -38,18 +33,18 @@ export const DarkBG = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  position: absolute;
+  position: fixed;
+  overflow-y:scroll;
 `
 
 export const ImgWrapper = styled.div`
   display: flex;
-  width: 500px;
-  height: 500px;
+  
 `
 
 export const Img = styled.img`
   display: flex;
-  object-fit: cover;
+  object-fit: fill;
   width: 100%;
   aspect-ratio: 1/1;
 `

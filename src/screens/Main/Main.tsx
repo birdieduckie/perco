@@ -4,7 +4,7 @@ import { Post } from 'components/Post/Post'
 
 import { Container, Items } from './styled'
 import { useAppDispatch, useAppSelector } from 'store/store'
-import { postsSelectors, postsRequested } from 'store/posts/postSlice'
+import { postsSelectors, postsRequested, postRequested } from "store/posts/postSlice";
 import { useSearchParams } from "react-router-dom";
 
 import { Modal } from "../../shared/ui/Modal/Modal";
@@ -22,27 +22,31 @@ export const Main: FC<MainProps> = () => {
       setIsOpen(prevState => !prevState)
     }
 
-  //   const showNext = (e: React.MouseEvent<HTMLElement>) => {
-  //   e.stopPropagation()
-  // }
+
+
 
     const onCloseModal = () => {
       const nextSearchParams = new URLSearchParams(searchParams)
       nextSearchParams.delete('post')
       setSearchParams(nextSearchParams)
-      setIsOpen((prevState => !prevState))
+      setIsOpen(prevState => !prevState)
   }
 
   const dispatch = useAppDispatch()
+  const id = searchParams.get('post')
 
   const posts = useAppSelector((state) => postsSelectors.selectAll(state.posts))
 
   useEffect(() => {
     if (!posts.length) {
       console.log('requesting')
-      dispatch(postsRequested)
+      dispatch(postsRequested())
+    } if (id) {
+      setIsOpen(true)
+      console.log(isOpen)
     }
-  }, [dispatch, posts])
+
+  }, [dispatch, posts, id])
 
   return (
     <>
@@ -53,8 +57,6 @@ export const Main: FC<MainProps> = () => {
             posts.map((item) => (
               <div key={item.id} onClick={() => onOpenModal(item.id)}>
               <Post
-                id={item.id}
-                text={item.text}
                 url={item.url}
               />
               </div>
