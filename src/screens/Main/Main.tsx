@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Post } from 'components/Post/Post'
 
@@ -16,43 +16,43 @@ export const Main: FC<MainProps> = () => {
   const [isOpen, setIsOpen] = useState(false)
 
     const onOpenModal = (id: string) => {
-        const nextSearchParams = new URLSearchParams(searchParams)
-        nextSearchParams.set('post', id)
-        setSearchParams(nextSearchParams)
+      const nextSearchParams = new URLSearchParams(searchParams)
+      nextSearchParams.set('post', id)
+      setSearchParams(nextSearchParams)
+      setIsOpen(prevState => !prevState)
     }
 
+  //   const showNext = (e: React.MouseEvent<HTMLElement>) => {
+  //   e.stopPropagation()
+  // }
 
     const onCloseModal = () => {
       const nextSearchParams = new URLSearchParams(searchParams)
       nextSearchParams.delete('post')
       setSearchParams(nextSearchParams)
+      setIsOpen((prevState => !prevState))
   }
 
-  const id = searchParams.get('post')
-
-  const handleOpenModal = () => setIsOpen(prevState => !prevState)
   const dispatch = useAppDispatch()
 
   const posts = useAppSelector((state) => postsSelectors.selectAll(state.posts))
 
   useEffect(() => {
-    console.log(posts)
     if (!posts.length) {
       console.log('requesting')
-      dispatch(postsRequested())
+      dispatch(postsRequested)
     }
   }, [dispatch, posts])
 
   return (
     <>
       <Container>
-        {isOpen && <Modal setIsOpen={setIsOpen}></Modal>}
+        {isOpen && <Modal params={searchParams} handleClose={onCloseModal}></Modal>}
         <Items>
           {posts &&
             posts.map((item) => (
-              <div onClick={handleOpenModal}>
+              <div key={item.id} onClick={() => onOpenModal(item.id)}>
               <Post
-                key={item.id}
                 id={item.id}
                 text={item.text}
                 url={item.url}

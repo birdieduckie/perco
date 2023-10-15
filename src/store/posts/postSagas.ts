@@ -5,10 +5,7 @@ import { POST_API } from 'shared/api'
 import {
   postsReceived,
   postsRequested,
-  postsRequestError,
-  postRequested,
-  postReceived,
-  postRequestError,
+  postsRequestError
 } from './postSlice'
 
 function* getPosts() {
@@ -26,26 +23,7 @@ function* getPosts() {
   }
 }
 
-//@ts-ignore
-
-function* getPost({ payload: id }) {
-  try {
-    //@ts-ignore
-    const response = yield call(POST_API.get, `/${id}`)
-
-    yield put(postReceived(response.data))
-
-    console.log(response.data)
-  } catch (error) {
-    yield put(postRequestError())
-    console.error(error)
-  }
-}
-
 export function* watchGetPosts() {
   yield takeLatest(postsRequested, getPosts)
 }
 
-export function* watchGetPost() {
-  yield takeLatest(postRequested, getPost)
-}

@@ -1,10 +1,9 @@
 import { all } from 'redux-saga/effects'
 
 import {
-  watchGetPosts as watchGetPostsSaga,
-  watchGetPost as watchGetPostSaga,
+  watchGetPosts as watchGetPostsSaga
 } from './posts/postSagas'
 
 export function* rootSaga() {
-  yield all([watchGetPostSaga(), watchGetPostsSaga()])
+  yield all([ watchGetPostsSaga()])
 }

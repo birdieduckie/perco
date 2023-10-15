@@ -1,20 +1,34 @@
+
+import { useAppSelector } from "../../../store/store";
+import { postsSelectors } from "../../../store/posts/postSlice";
 import { Button } from 'shared/ui/Button/Button'
 
-import {Container, Header, Footer} from './styled'
+import {Container, Header, Footer, DarkBG, ImgWrapper, Img} from './styled'
+
 
 interface ModalProps {
-  setIsOpen: (b: boolean) => void
+  params: URLSearchParams
+  handleClose: () => void
 }
 
-export const Modal = ({ setIsOpen }: ModalProps) => {
+export const Modal = ({ params, handleClose }: ModalProps) => {
+  const id = params.get('post')
+  const post = useAppSelector(state => id && postsSelectors.selectById(state.posts, id))
 
   return (
-    <Container>
-      <Header />
-      <Footer>
-        <Button variant='danger' onClick={() => setIsOpen(false)}>X</Button>
-      </Footer>
-    </Container>
+    <>
+    {post ? <DarkBG>
+        <Container>
+          <Header />
+             <ImgWrapper>
+                 <Img src={post.url}></Img>
+             </ImgWrapper>
+          <Footer>
+            <Button variant='danger' onClick={handleClose}>X</Button>
+          </Footer>
+        </Container>
+        </DarkBG> : <div>Ой! Кажется, что-то сломалось...</div>
+    }
+    </>
   )
-
 }

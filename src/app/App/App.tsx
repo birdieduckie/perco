@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { Main } from 'screens/Main/Main'
-import { PostScreen } from '../../screens/PostScreen/PostScreen'
+
 
 export const App = () => {
   return (

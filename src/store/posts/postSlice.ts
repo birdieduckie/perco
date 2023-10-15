@@ -21,17 +21,6 @@ export const postSlice = createSlice({
     status: Status.Initial,
   }),
   reducers: {
-    postRequested(state, action) {
-      console.log('request!')
-      state.status = Status.Pending
-    },
-    postReceived(state, action) {
-      postsAdapter.setOne(state, action.payload)
-      state.status = Status.Success
-    },
-    postRequestError(state) {
-      state.status = Status.Failure
-    },
     postsRequested(state) {
       state.status = Status.Pending
     },
@@ -54,7 +43,4 @@ export const {
   postsRequested,
   postsReceived,
   postsRequestError,
-  postRequested,
-  postReceived,
-  postRequestError,
 } = actions
