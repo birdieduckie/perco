@@ -1,4 +1,13 @@
-import { createEntityAdapter, createSlice, nanoid, createSelector, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  nanoid,
+  createSelector,
+  PayloadAction,
+} from '@reduxjs/toolkit'
+
+import { postsSelectors } from '../posts/postSlice'
+import { RootState } from '../store'
 
 export interface Comment {
   id: string
@@ -20,17 +29,14 @@ export const commentSlice = createSlice({
     createComment: {
       reducer: (state, action: PayloadAction<Comment>) => {
         commentsAdapter.setOne(state, action.payload)
-        console.log(state)
       },
       prepare: (text: string, postId: string) => {
         const id = nanoid()
-        console.log(text)
         return { payload: { id, text, postId } }
       },
     },
   },
 })
-
 
 export const { actions, reducer } = commentSlice
 

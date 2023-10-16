@@ -14,7 +14,7 @@ import {
 function* getPosts() {
   try {
     //@ts-ignore
-    const response = yield call(POST_API.get, '/search?limit=100')
+    const response = yield call(POST_API.get, '/search?limit=50')
     console.log(response)
     //@ts-ignore
     yield put(postsReceived(response.data))
@@ -28,13 +28,12 @@ function* getPosts() {
 }
 //@ts-ignore
 
-function* getPost({ payload:  id }) {
+function* getPost({ payload: id }) {
   try {
     //@ts-ignore
     const response = yield call(POST_API.get, `/${id}`)
-//@ts-ignore
+    //@ts-ignore
     yield put(postReceived(response.data))
-
   } catch (error) {
     yield put(postRequestError)
     console.error(error)
