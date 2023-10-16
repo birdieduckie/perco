@@ -1,6 +1,6 @@
-import { EntityState, createSelector } from '@reduxjs/toolkit'
-import { RootState } from 'store/store'
-import { Comment, commentSelectors, commentSlice } from './commentSlice'
+import { createSelector } from '@reduxjs/toolkit'
+
+import { Comment, commentSelectors } from './commentSlice'
 
 //@ts-ignore
 const getId = (_, id) => id

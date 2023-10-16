@@ -1,14 +1,17 @@
 import { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
+
 import { useAppSelector, useAppDispatch } from '../../store/store'
+import { selectComments } from 'store/comments/commentCustomSelectors'
 import { postRequested, postsSelectors } from '../../store/posts/postSlice'
+
 import { CommentForm } from '../CommentForm/CommentForm'
 import { Comment } from '../Comment/Comment'
+import { Pic } from '../../shared/ui/Pic/Pic'
+
 import { Button } from 'shared/ui/Button/Button'
 
-import { Container, Footer, DarkBG, ImgWrapper, Img } from './styled'
-import { commentSelectors } from '../../store/comments/commentSlice'
-import { selectComments } from 'store/comments/commentCustomSelectors'
-import { useSearchParams } from 'react-router-dom'
+import { Container, Footer, Overlay } from './styled'
 
 interface ModalProps {
   handleClose: () => void
@@ -26,8 +29,6 @@ export const Modal = ({ handleClose }: ModalProps) => {
 
   const comments = useAppSelector((state) => selectComments(state.comments, id))
 
-  console.log(comments)
-
   useEffect(() => {
     if (!post && id) {
       dispatch(postRequested(id))
@@ -37,22 +38,22 @@ export const Modal = ({ handleClose }: ModalProps) => {
   return (
     <>
       {post && (
-        <DarkBG>
+        <Overlay>
           <Container>
-            <ImgWrapper>
-              <Img src={post.url}></Img>
-            </ImgWrapper>
+            <Pic variant="modal" url={post.url} />
             <Footer>
               <h2>{post.id}</h2>
               <h3>Комментарии:</h3>
               <CommentForm postId={post.id} />
+              {comments?.map((comment) => (
+                <Comment key={comment.id}>{comment.text}</Comment>
+              ))}
               <Button variant="danger" onClick={handleClose}>
                 X
               </Button>
-              {comments?.map((comment) => <Comment>{comment.text}</Comment>)}
             </Footer>
           </Container>
-        </DarkBG>
+        </Overlay>
       )}
     </>
   )

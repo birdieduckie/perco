@@ -1,18 +1,13 @@
 import React, { FC, useEffect, useState } from 'react'
-
-import { Post } from 'components/Post/Post'
-
-import { Container, Items } from './styled'
-import { useAppDispatch, useAppSelector } from 'store/store'
-import {
-  postsSelectors,
-  postsRequested,
-  postRequested,
-} from 'store/posts/postSlice'
 import { useSearchParams } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from 'store/store'
+import { postsSelectors, postsRequested } from 'store/posts/postSlice'
+
 import { Modal } from '../../components/Modal/Modal'
-import { selectComments } from '../../store/comments/commentCustomSelectors'
+import { Pic } from 'shared/ui/Pic/Pic'
+
+import { Container, Items, Head } from './styled'
 
 interface MainProps {}
 
@@ -35,7 +30,6 @@ export const Main: FC<MainProps> = () => {
   }
 
   const dispatch = useAppDispatch()
-  const id = searchParams.get('post')
 
   const posts = useAppSelector((state) => postsSelectors.selectAll(state.posts))
 
@@ -44,20 +38,17 @@ export const Main: FC<MainProps> = () => {
       console.log('requesting')
       dispatch(postsRequested())
     }
-    if (id) {
-      setIsOpen(true)
-      console.log(isOpen)
-    }
-  }, [dispatch, posts, id])
+  }, [dispatch, posts])
 
   return (
     <>
       <Container>
+        <Head>Cats' Photos</Head>
         {isOpen && <Modal handleClose={onCloseModal} />}
         <Items>
           {posts?.map((item) => (
             <div key={item.id} onClick={() => onOpenModal(item.id)}>
-              <Post url={item.url} />
+              <Pic variant="main" url={item.url} />
             </div>
           ))}
         </Items>

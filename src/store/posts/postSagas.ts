@@ -26,8 +26,8 @@ function* getPosts() {
     console.log(error)
   }
 }
-//@ts-ignore
 
+// @ts-ignore
 function* getPost({ payload: id }) {
   try {
     //@ts-ignore

@@ -2,12 +2,8 @@ import {
   createEntityAdapter,
   createSlice,
   nanoid,
-  createSelector,
   PayloadAction,
 } from '@reduxjs/toolkit'
-
-import { postsSelectors } from '../posts/postSlice'
-import { RootState } from '../store'
 
 export interface Comment {
   id: string
